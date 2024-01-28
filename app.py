@@ -2,7 +2,6 @@ from flask import Flask, request, render_template
 import sqlite3
 from datetime import datetime,timezone
 import json
-from datetime import datetime
 import pytz
 
 
@@ -164,6 +163,4 @@ def search():
     else:
         
         return str(json.dumps(status(x,zone)))
-
-    
-app.run()
+        
