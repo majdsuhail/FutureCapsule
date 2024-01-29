@@ -68,7 +68,7 @@ def status(x, zone):
     for i in x:
         
         currentTime = datetime.utcnow().replace(tzinfo=pytz.utc)
-        capTime= datetime.fromisoformat(i[4])
+        capTime= datetime.strptime(i[4], "%Y-%m-%dT%H:%M:%S%z")
         cap=list(i+('opened',)) if capTime< currentTime else list(i+('closed',))
         del cap[3]
         cap.insert(3,'')
@@ -95,7 +95,7 @@ def index():
    
      data= (request.form['name'],request.form['description'],request.form['content'],request.form['willOpen'], request.form['time'],request.form['zone'])
      
-     if len(data[4])==0 or datetime.fromisoformat(convert_to_utc(data[3]+'T'+data[4]+data[5]))<=datetime.now(timezone.utc):
+     if len(data[4])==0 or datetime.strptime(convert_to_utc(data[3]+'T'+data[4]+data[5]), "%Y-%m-%dT%H:%M:%S%z")<=datetime.now(timezone.utc):
          return "Internal Server Error", 500
 
      dbCheck()
