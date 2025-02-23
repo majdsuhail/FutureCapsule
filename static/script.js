@@ -238,41 +238,36 @@ $(document).on("click", ".openedCapSvg", function(){
 //____________________________________________________________________________
 
     $(".all").click(function() {
-  
-    
-        // Send an AJAX request
-        $.ajax({
-          type: "POST", 
-          url: "/getCaps", 
-          data:"&zone="+getTZ(),
-          success: function(response) {
+    $("#spinner").show(); // Show spinner
 
+    // Send an AJAX request
+    $.ajax({
+        type: "POST",
+        url: "/getCaps",
+        data: "&zone=" + getTZ(),
+        success: function(response) {
             $(".capRow").empty();
-
             var array = JSON.parse(response);
+
             array.forEach(function(element) {
+                var capsule;
+                if (element[6] == 'opened') {
+                    capsule = $(openedCap);
+                } else {
+                    capsule = $(closedCap);
+                    capsule.find('svg text').text(formatDate(element[4]));
+                }
+                $(".capRow").append(formateDetails(capsule, element));
+            });
 
-              if (element[6]=='opened'){
-
-              var capsule = $(openedCap);
-            }
-            else{
-              var capsule = $(closedCap);
-              
-              capsule.find('svg text').text(formatDate(element[4]))
-            }
-           
-            $(".capRow").append(formateDetails(capsule,element));
-          })
-             
-          },
-          error: function(xhr, status, error) {
-            // Handle any errors here
+            $("#spinner").hide(); // Hide spinner after content loads
+        },
+        error: function(xhr, status, error) {
             console.error(xhr.responseText);
-          }
-        });
-  
-    })
+            $("#spinner").hide(); // Hide spinner even if there's an error
+        }
+    });
+});
 //____________________________________________________________________________
 
     $(".closed").click(function() {
