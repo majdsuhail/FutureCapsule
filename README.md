@@ -37,26 +37,8 @@ The app is deployed using [PythonAnywhere](https://www.pythonanywhere.com/). Acc
 - jQuery
 - Bootstrap
 
-## Installation
-
-To run the app locally, make sure you have the required dependencies installed. You can install them using:
-
-```bash
-pip install Flask
-pip install jquery
-pip install bootstrap
-```
-
-```bash
-pip install -r requirements.txt
-```
-
 ## Code Overview
 
 - **app.py**: Flask backend with SQLite3 database interactions.
 - **static/**: Folder containing CSS and JavaScript files.
 - **templates/**: HTML templates for different pages.
-
-## License
-
-This project is licensed under the MIT License.
